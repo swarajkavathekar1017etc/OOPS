@@ -1,44 +1,45 @@
 #include <iostream>
 using namespace std;
-class Complex {
-float real, imag;
-public:
-Complex add(Complex c) {
-return Complex(real + c.real, imag + c.imag);
-}
-Complex subtract(Complex c) {
-return Complex(real - c.real, imag - c.imag);
-}
-Complex multiply(Complex c) {
-return Complex(real * c.real - imag * c.imag, real * c.imag + imag * c.real);
-}
-Complex divide(Complex c) {
-float denominator = c.real * c.real + c.imag * c.imag;
-if (denominator == 0) {
-cout << "Error: Division by zero!" << endl;
-return Complex(0, 0);
-}
-float r = (real * c.real + imag * c.imag) ;
-float i = (imag * c.real - real * c.imag) ;
-return Complex(r, i);
-}
-void display() {
-if (imag >= 0)
-cout << real << " + " << imag << "i" << endl;
-else
-cout << real << " - " << -imag << "i" << endl;
-}
-};
-int main() {
-Complex c1(4, 5), c2(2, -3);
 
-cout << "Addition: ";
-c1.add(c2).display();
-cout << "Subtraction: ";
-c1.subtract(c2).display();
-cout << "Multiplication: ";
-c1.multiply(c2).display();
-cout << "Division: ";
-c1.divide(c2).display();
-return 0;
+class Complex {
+    int r, q;
+public:
+    void read(int real, int img) {
+        r = real;
+        q = img;
+    }
+    void display() {
+        if (q >= 0) {
+            cout << r << "+" << q << "i" << endl;
+        } else {
+            cout << r << "-" << -q << "i" << endl;
+        }
+    } 
+    Complex operator+(Complex c) {
+        Complex sum;
+        sum.r = r + c.r;
+        sum.q = q + c.q;
+        return sum;
+    }
+};
+
+int main() {
+    Complex c1, c2, c3;
+    int r1, r2, q1,q2;
+    cout<<"enter real part of img number:";
+    cin>>r1;
+    cout<<"enter img part of img number:";
+    cin>>q1;
+    cout<<"enter real part of img number:";
+    cin>>r2;
+    cout<<"enter img part of img number:";
+    cin>>q2;
+    
+    c1.read(r1, q1);
+    c2.read(r2, q2);
+    
+    c3 = c1 + c2; 
+    c3.display();
+    
+    return 0;
 }
